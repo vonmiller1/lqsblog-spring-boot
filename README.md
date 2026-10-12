@@ -1,83 +1,47 @@
 # lqsblog-backend-java-springboot
 
- 它（[Github](https://github.com/lqsong/lqsblog-backend-java-springboot) 、 [Gitee](https://gitee.com/lqsong/lqsblog-backend-java-springboot)）是一个基于微服务思想的API后端服务，它基于 [spring-boot](https://spring.io/projects/spring-boot)实现（maven + springboot + mybatis + mybatis plus + shiro + jwt（+ 自动刷新） + restful）。
-
-
-## 开发文档
-
-- [lqsBlog官方文档](http://docs.liqingsong.cc/guide/backendservice/java-springboot.html)。
-
-- [ADMIN DEMO](http://lqsblog-demo.admin-element-vue.liqingsong.cc/)
-
-- [PC DEMO](http://liqingsong.cc/)
+一个基于 Spring Boot 的博客后端项目，采用 Maven 构建，提供管理端和 PC 端 API，并按模块组织公共代码、数据访问和业务服务。
 
 ## 功能
 
+- 登录与注销，使用 Shiro 和 JWT 进行身份验证
+- 首页与数据统计
+- 随笔、作品、专题和友情链接管理
+- 站点设置，包括关于信息、标签、账号、角色、菜单、API 和站点配置
+- 可扩展的 Web 前台模块
+
+## 技术栈
+
+- Java、Spring Boot、Spring Framework
+- Apache Shiro、JWT
+- MyBatis、MyBatis-Plus
+- SLF4J、Jackson、Fastjson、Lombok
+- Maven、Thymeleaf
+
+## 模块结构
+
+```text
+├── lqsblog-api             管理端和 PC 端 API
+├── lqsblog-api-common      API 公共模块
+├── lqsblog-common          项目公共模块
+├── lqsblog-database        实体类、DTO 和 VO
+├── lqsblog-service         业务服务模块
+├── lqsblog-webs            PC Web 前台
+├── lqsblog-webs-common     Web 公共模块
+└── pom.xml                 Maven 配置
+```
+
+## 环境要求
+
+- JDK 11 或更高版本
+- MySQL 5.7 或更高版本
+- Maven 3.6 或更高版本
+- IntelliJ IDEA（建议启用 Lombok 插件及注解处理）
+
+## 构建
+
+在项目根目录执行：
+
 ```sh
-# 一、api 模块 (admin、pc)
-- 登录 / 注销 (shiro + jwt 验证，自动刷新jwt)
-- 首页 / 统计
-- 随笔
-- 作品
-- 专题
-- 左邻右舍
-- 设置
-  - 关于我
-  - 标签
-  - 账号
-  - 角色
-  - 后台菜单
-  - 后台API
-  - 站点配置
-# 二、webs 模块,自己自定义扩展
+mvn clean package
 ```
-
-## 技术选型
-
-- 核心框架：Sring boot + Spring Framework
-- 安全框架：Apache Shiro
-- 持久层框架： MyBatis + MyBatis-Plus
-- 会话管理: JWT
-- 日志管理：SLF4J
-- JSON转换: Jackson FastJson
-- JAVA库：Lombok
-- 工具：Maven
-- api风格：restful
-- 模板引擎：thymeleaf
-
-
-
-## 目录结构
-
-本项目已经为你生成了一个完整的开发框架，下面是整个项目的目录结构。
-
-```bash
-├── lqsblog-api                            # api服务
-│   │── cc.liqingsong.api.admin            # admin后台api接口
-│   └── cc.liqingsong.api.pc               # pc前台api接口
-├── lqsblog-api-common                     # api服务公共
-├── lqsblog-common                         # 项目公共
-├── lqsblog-database                       # 项目数据库(实体类、DTO、VO)
-├── lqsblog-service                        # 项目服务类
-├── lqsblog-webs                           # jsp Web PC前台
-├── lqsblog-webs-common                    # jsp Web 公共
-└── pom.xml                                # maven 配置文件
-```
-
-## 基础环境
-
-- JDK11 +
-- MySQL5.7 +
-- maven3.6 +
-- Idea 安装 lombok 设置动态编译
-
-
-## 捐赠
-
-如果你觉得这个项目帮助到了你，你可以请作者喝咖啡表示鼓励.
-
-**ALIPAY**             |  **WECHAT**
-:-------------------------:|:-------------------------:
-![Alipay](http://uploads.liqingsong.cc/20210430/f62d2436-8d92-407d-977f-35f1e4b891fc.png)  |  ![Wechat](http://uploads.liqingsong.cc/20210430/3e24efa9-8e79-4606-9bd9-8215ce1235ac.png)
-
-
