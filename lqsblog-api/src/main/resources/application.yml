@@ -73,3 +73,10 @@ lqsblog:
       - image/gif
       - image/jpg
       - image/jpeg
+---
+# Local profile: verbose SQL logging (spring.profiles.active=local).
+spring:
+  profiles: local
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
