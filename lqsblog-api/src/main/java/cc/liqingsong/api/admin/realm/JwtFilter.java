@@ -2,6 +2,8 @@ package cc.liqingsong.api.admin.realm;
 
 
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +20,7 @@ import java.io.IOException;
  */
 public class JwtFilter extends BasicHttpAuthenticationFilter {
 
+    private static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
 
     // Header头 Token 名称
     private String tokenkey;
@@ -82,9 +85,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
                 try {
                     httpServletRequest.getRequestDispatcher(loginUrl).forward(httpServletRequest,httpServletResponse);
                 } catch (ServletException ex) {
-                    ex.printStackTrace();
+                    log.warn("Failed to forward unauthenticated request to {}", loginUrl, ex);
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    log.warn("Failed to forward unauthenticated request to {}", loginUrl, ex);
                 }
 
             }
@@ -92,9 +95,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             try {
                 httpServletRequest.getRequestDispatcher(loginUrl).forward(httpServletRequest,httpServletResponse);
             } catch (ServletException e) {
-                e.printStackTrace();
+                log.warn("Failed to forward request without token to {}", loginUrl, e);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.warn("Failed to forward request without token to {}", loginUrl, e);
             }
         }
         return true;
