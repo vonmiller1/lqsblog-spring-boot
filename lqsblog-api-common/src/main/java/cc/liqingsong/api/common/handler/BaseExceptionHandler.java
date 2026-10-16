@@ -5,6 +5,8 @@ import cc.liqingsong.api.common.exception.ApiCommonException;
 import cc.liqingsong.common.enums.ResultCode;
 import cc.liqingsong.common.exception.CommonRuntimeException;
 import org.apache.shiro.authz.AuthorizationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 @ControllerAdvice
 public class BaseExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(BaseExceptionHandler.class);
 
     /**
      * 异常
@@ -44,7 +47,7 @@ public class BaseExceptionHandler {
             Result result = new Result(ce.getCode(),ce.getMessage());
             return result;
         } else {
-            System.out.println(e);
+            log.error("Unhandled API exception on {} {}", request.getMethod(), request.getRequestURI(), e);
             Result result = new Result(ResultCode.SERVER_ERROR);
             return result;
         }
