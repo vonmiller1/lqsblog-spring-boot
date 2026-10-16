@@ -17,7 +17,9 @@ public class WebErrorAttributes extends DefaultErrorAttributes {
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
         Map<String, Object> map = super.getErrorAttributes(webRequest, includeStackTrace);
         Map<String,Object> error = (Map<String, Object>) webRequest.getAttribute("error", 0);
-        map.putAll(error);
+        if (error != null) {
+            map.putAll(error);
+        }
         return map;
     }
 }
