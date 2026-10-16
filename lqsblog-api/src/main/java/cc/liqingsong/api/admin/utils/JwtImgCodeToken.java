@@ -6,6 +6,7 @@ import cc.liqingsong.common.utils.JwtUtils;
 import cc.liqingsong.database.vo.admin.ImgCodeTokenVO;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -45,7 +46,7 @@ public class JwtImgCodeToken {
      *     token: token加密的验证码字符串
      */
     public String parseImgCode(String token) {
-        if (null == token || token.equals("")) {
+        if (!StringUtils.hasText(token)) {
             return null;
         }
         try {
