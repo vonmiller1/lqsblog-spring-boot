@@ -1,5 +1,8 @@
 package cc.liqingsong.common.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +17,8 @@ import java.util.Random;
  * @author liqingsong
  */
 public class ImgValidateCodeUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(ImgValidateCodeUtil.class);
 
     private static Random random = new Random();
     /**
@@ -139,7 +144,7 @@ public class ImgValidateCodeUtil {
             base64Code = encoder.encodeToString(bytes);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn("Failed to encode captcha image as Base64", e);
         }
         result.put("data", "data:image/png;base64," + base64Code);
         return result;
