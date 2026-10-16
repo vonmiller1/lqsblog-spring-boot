@@ -17,7 +17,7 @@ public class SearchHotwordServiceImpl   extends ServiceImpl<SearchHotwordMapper,
 
     @Override
     public boolean saveHotWord(String hotWord) {
-        if(null == hotWord || hotWord.equals("") || hotWord.isEmpty()) {
+        if (hotWord == null || hotWord.isBlank()) {
             return false;
         }
         SearchHotword entity = new SearchHotword();
