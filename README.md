@@ -51,7 +51,7 @@ Runnable modules keep their own `application.yml`:
 | API | `lqsblog-api/src/main/resources/application.yml` |
 | Web | `lqsblog-webs/src/main/resources/application.yml` |
 
-Local development activates the `local` Spring profile, which enables verbose SQL logging via `application-local.yml` in each module.
+Local development activates the `local` Spring profile, which enables verbose SQL logging via a profile-specific section at the bottom of each module’s `application.yml`.
 
 Environment variables (defaults match local samples in YAML):
 
@@ -117,7 +117,7 @@ Module-level tests live under each module’s `src/test/java` tree (for example 
 ## Deployment
 
 - Build fat JARs with `mvn clean package` and run with a JRE 11+ runtime.
-- Point `LQSBLOG_DB_*` and `LQSBLOG_JWT_KEY` at production values; disable the `local` profile or omit `application-local.yml` logging in production.
+- Point `LQSBLOG_DB_*` and `LQSBLOG_JWT_KEY` at production values; use a non-`local` Spring profile in production to avoid stdout SQL logging.
 - Ensure the upload directory exists and is writable when using admin upload endpoints.
 - Configure `lqsblog.access.origins` for allowed admin front-end origins.
 
