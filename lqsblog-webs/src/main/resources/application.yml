@@ -9,9 +9,9 @@ spring:
   # 数据库连接池
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/lqsblog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    url: ${LQSBLOG_DB_URL:jdbc:mysql://127.0.0.1:3306/lqsblog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai}
+    username: ${LQSBLOG_DB_USERNAME:root}
+    password: ${LQSBLOG_DB_PASSWORD:root}
   # 模板配置
   thymeleaf:
     cache: true
@@ -19,8 +19,6 @@ spring:
     suffix: .html
 # mybatis-plus 配置
 mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       table-prefix: lqs_
@@ -31,3 +29,10 @@ server:
   servlet:
     # 应用的访问路径
     context-path: /
+---
+# Local profile: verbose SQL logging (spring.profiles.active=local).
+spring:
+  profiles: local
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
