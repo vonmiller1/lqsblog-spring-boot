@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -238,7 +239,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setNickname(entity.getNickname());
         user.setUsername(entity.getUsername());
 
-        if(!entity.getPassword().equals("")) {
+        if (StringUtils.hasText(entity.getPassword())) {
             String salt = saltRandom(8);
             String password = passWordSimpleHash(entity.getPassword(), salt);
             user.setSalt(salt);
@@ -318,7 +319,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Assert.fail(nameLen > 30 || nameLen < 6, UserCode.USERNAME_LENGTH_WORDS);
 
         Assert.fail(null == entity.getPassword(), UserCode.LOGIN_PASSWORDS_NOT_EMPTY);
-        if (type.equals("save") || !entity.getPassword().equals("")) {
+        if (type.equals("save") || StringUtils.hasText(entity.getPassword())) {
             int passLen = entity.getPassword().length();
             Assert.fail(passLen > 15 || passLen < 6, UserCode.PASSWORDS_LENGTH_WORDS);
         }
