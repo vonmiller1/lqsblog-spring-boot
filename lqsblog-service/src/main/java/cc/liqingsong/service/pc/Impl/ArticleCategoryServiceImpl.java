@@ -35,7 +35,7 @@ public class ArticleCategoryServiceImpl extends ServiceImpl<ArticleCategoryMappe
     public ArticleCategory selectByAliasAndAddHit(String alias) {
 
         // 如果为空 读取 默认配置的父分类说明
-        if(null == alias || alias.equals("") || alias.isEmpty()) {
+        if (alias == null || alias.isBlank()) {
             SinglePage spInfo = singlePageService.getByIdAndAddHit(2);
             if(null == spInfo) {
                 return null;
