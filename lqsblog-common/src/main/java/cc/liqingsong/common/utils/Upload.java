@@ -117,8 +117,11 @@ public class Upload {
                 throw new CommonRuntimeException(99999,"对不起!文件名包含无效的路径序列 " +  originalFileName);
             }
 
-            // 获取文件后缀名
-            String suffixName = originalFileName.substring(originalFileName.lastIndexOf("."));
+            int dotIndex = originalFileName.lastIndexOf('.');
+            if (dotIndex <= 0 || dotIndex == originalFileName.length() - 1) {
+                throw new CommonRuntimeException(99999, "文件缺少有效的扩展名");
+            }
+            String suffixName = originalFileName.substring(dotIndex);
 
             //重新生成文件名
             String newFileName = UUID.randomUUID() + suffixName;
@@ -162,6 +165,9 @@ public class Upload {
             this.setFileStorageLocation(subDir);
             // 获取文件路径
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            if (!filePath.startsWith(this.fileStorageLocation)) {
+                throw new CommonRuntimeException(99999, "无效的文件路径");
+            }
 
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {
