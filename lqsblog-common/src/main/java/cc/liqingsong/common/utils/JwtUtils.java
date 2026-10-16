@@ -66,6 +66,9 @@ public class JwtUtils {
      *     token: token字符串
      */
     public Claims parseJWT(String token) {
+        if (token == null || token.trim().isEmpty()) {
+            throw new IllegalArgumentException("JWT token must not be blank");
+        }
         Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
         return claims;
     }
