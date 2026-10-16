@@ -1,47 +1,77 @@
-# lqsblog-backend-java-springboot
+# LQSBlog Spring Boot
 
-一个基于 Spring Boot 的博客后端项目，采用 Maven 构建，提供管理端和 PC 端 API，并按模块组织公共代码、数据访问和业务服务。
+A modular Java/Spring Boot backend for a personal blog. The project provides administrative and public-facing APIs, shared business and data-access modules, and a Thymeleaf-based web application.
 
-## 功能
+## Features
 
-- 登录与注销，使用 Shiro 和 JWT 进行身份验证
-- 首页与数据统计
-- 随笔、作品、专题和友情链接管理
-- 站点设置，包括关于信息、标签、账号、角色、菜单、API 和站点配置
-- 可扩展的 Web 前台模块
+- JWT/Shiro-based administrative authentication
+- Public blog endpoints for articles, categories, tags, topics, works, links, search, and site configuration
+- Administrative endpoints for content, accounts, roles, menus, uploads, and site settings
+- MyBatis-Plus persistence backed by MySQL
+- Thymeleaf web application with shared web components
 
-## 技术栈
+## Technology
 
-- Java、Spring Boot、Spring Framework
-- Apache Shiro、JWT
-- MyBatis、MyBatis-Plus
-- SLF4J、Jackson、Fastjson、Lombok
-- Maven、Thymeleaf
+- Java 11
+- Spring Boot 2.2.6
+- Maven multi-module build
+- MyBatis-Plus and MySQL
+- Apache Shiro and JWT
+- Thymeleaf
 
-## 模块结构
+## Modules
 
-```text
-├── lqsblog-api             管理端和 PC 端 API
-├── lqsblog-api-common      API 公共模块
-├── lqsblog-common          项目公共模块
-├── lqsblog-database        实体类、DTO 和 VO
-├── lqsblog-service         业务服务模块
-├── lqsblog-webs            PC Web 前台
-├── lqsblog-webs-common     Web 公共模块
-└── pom.xml                 Maven 配置
-```
+| Module | Responsibility |
+| --- | --- |
+| `lqsblog-api` | Administrative and public REST API application |
+| `lqsblog-api-common` | Shared API configuration and components |
+| `lqsblog-webs` | Thymeleaf web application |
+| `lqsblog-webs-common` | Shared web components |
+| `lqsblog-service` | Blog business services |
+| `lqsblog-database` | Persistence models and MyBatis mappers |
+| `lqsblog-common` | Shared utilities and common code |
 
-## 环境要求
+## Prerequisites
 
-- JDK 11 或更高版本
-- MySQL 5.7 或更高版本
-- Maven 3.6 或更高版本
-- IntelliJ IDEA（建议启用 Lombok 插件及注解处理）
+- JDK 11
+- Maven 3.6 or later
+- MySQL 5.7 or later, with the database schema and data required by the application
 
-## 构建
+## Configure
 
-在项目根目录执行：
+Before starting either application, review its configuration:
+
+- API: `lqsblog-api/src/main/resources/application.yml`
+- Web: `lqsblog-webs/src/main/resources/application.yml`
+
+Set the MySQL connection details for your environment. For the API, also set an appropriately protected JWT signing key, the upload directory, the site URL, and the allowed CORS origins. Do not deploy with development credentials or signing keys, and do not commit production secrets.
+
+The API is configured for port `8088` and the web application for port `8089` by default. Adjust the corresponding `server.port` setting if those ports are unavailable.
+
+## Build
+
+From the repository root:
 
 ```sh
 mvn clean package
 ```
+
+## Run
+
+Build the project first, then launch either executable application from the repository root:
+
+```sh
+java -jar lqsblog-api/target/lqsblog-api-1.0-SNAPSHOT.jar
+```
+
+```sh
+java -jar lqsblog-webs/target/lqsblog-webs-1.0-SNAPSHOT.jar
+```
+
+The API and web application can be run independently; start the one you need after configuring its database connection.
+
+## Development notes
+
+- Application configuration is maintained separately in each runnable module.
+- Uploaded files are written to the configured local upload directory; ensure it exists and is writable by the application.
+- The root Maven project aggregates all seven modules.
