@@ -136,7 +136,7 @@ public class SearchServiceImpl  extends ServiceImpl<SearchMapper, Search> implem
 
         if(!againstArr.isEmpty()) {
             String join = StringUtils.join(againstArr, ' ');
-            qw.apply("match(key_precise) against ('" + join + "' IN BOOLEAN MODE) ");
+            qw.apply("match(key_precise) against ({0} IN BOOLEAN MODE)", join);
         }
 
 
