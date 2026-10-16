@@ -25,7 +25,7 @@ public class BaseExceptionHandler {
             msg = ex.getMsg();
         }
         String accept = request.getHeader("accept");
-        if(accept.startsWith("text/html")) {
+        if (accept != null && accept.startsWith("text/html")) {
             request.setAttribute("javax.servlet.error.status_code",500); // 不设置默认 200
         }
         HashMap<String, Object> map = new HashMap<>();
