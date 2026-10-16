@@ -38,7 +38,7 @@ public class BaseController {
         if (!StringUtils.isEmpty(var8)) {
             Long var7 = Long.valueOf(var8);
             if (var7 > 0L) {
-                var3 = var7;
+                var3 = Math.min(var7, 100L);
             }
         }
 
